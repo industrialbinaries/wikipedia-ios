@@ -60,6 +60,45 @@ final public class ArticleFetcher: Fetcher {
         
         return nil
     }
+    
+    struct BundledOfflineResources {
+        let baseCSS: URL
+        let siteCSS: URL
+        let pcsCSS: URL
+        let pcsJS: URL
+    }
+    
+    func bundledOfflineResourceURLs(with siteURL: URL) -> BundledOfflineResources? {
+        
+
+        //TONITODO: clean this hardcoded nonsense up, move to Configuration.swift
+        
+        guard let siteDomain = (siteURL as NSURL).wmf_domain,
+        let siteCSS = URL(string: "https://\(siteDomain)/api/rest_v1/data/css/mobile/site") else {
+            return nil
+        }
+        
+        #if WMF_APPS_LABS
+        
+            guard let baseCSS = URL(string: "https://apps.wmflabs.org/api/v1/data/css/mobile/base"),
+                let pcsCSS = URL(string: "https://apps.wmflabs.org/api/v1/data/css/mobile/pcs"),
+                let pcsJS = URL(string: "https://apps.wmflabs.org/api/v1/data/javascript/mobile/pcs") else {
+                    return nil
+            }
+        
+            return BundledOfflineResources(baseCSS: baseCSS, siteCSS: siteCSS, pcsCSS: pcsCSS, pcsJS: pcsJS)
+        #else
+        
+           guard let baseCSS = URL(string: "https://meta.wikimedia.org//api/v1/data/css/mobile/base"),
+                let pcsCSS = URL(string: "https://meta.wikimedia.org//api/v1/data/css/mobile/pcs"),
+                let pcsJS = URL(string: "https://meta.wikimedia.org//api/v1/data/javascript/mobile/pcs") else {
+                    return nil
+            }
+        
+            return BundledOfflineResources(baseCSS: baseCSS, siteCSS: siteCSS, pcsCSS: pcsCSS, pcsJS: pcsJS)
+        
+        #endif
+    }
 }
 
 private extension ArticleFetcher {

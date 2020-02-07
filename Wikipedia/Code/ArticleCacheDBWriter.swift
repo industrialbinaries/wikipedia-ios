@@ -163,32 +163,67 @@ final class ArticleCacheDBWriter: NSObject, CacheDBWriting {
 
 extension ArticleCacheDBWriter {
     
-    func cacheMobileHtmlFromMigration(desktopArticleURL: URL, success: @escaping (CacheController.ItemKey) -> Void, failure: @escaping (Error) -> Void) { //articleURL should be desktopURL
-        guard let key = desktopArticleURL.wmf_databaseKey else {
+    func cacheMobileHtmlFromMigration(desktopArticleURL: URL, success: @escaping ([CacheController.ItemKey]) -> Void, failure: @escaping (Error) -> Void) { //articleURL should be desktopURL
+        guard let mobileHTMLKey = desktopArticleURL.wmf_databaseKey else {
             failure(ArticleCacheDBWriterError.unableToDetermineMobileHtmlDatabaseKey)
             return
         }
         
+        //add bundled offline resources
+        var bundledOfflineResourceKeys: [String] = []
+        if let offlineResources = articleFetcher.bundledOfflineResourceURLs(with: desktopArticleURL) {
+            
+            if let baseCSSKey = offlineResources.baseCSS.wmf_databaseKey {
+                bundledOfflineResourceKeys.append(baseCSSKey)
+            }
+            
+            if let siteCSSKey = offlineResources.siteCSS.wmf_databaseKey {
+                bundledOfflineResourceKeys.append(siteCSSKey)
+            }
+            
+            if let pcsCSSKey = offlineResources.pcsCSS.wmf_databaseKey {
+                bundledOfflineResourceKeys.append(pcsCSSKey)
+            }
+            
+            if let pcsJSKey = offlineResources.pcsJS.wmf_databaseKey {
+                bundledOfflineResourceKeys.append(pcsJSKey)
+            }
+        }
+        
+        let keysToAdd: [String] = [[mobileHTMLKey], bundledOfflineResourceKeys].flatMap { $0 }
+        
         //tonitodo: remove fromMigration flag
-        cacheURLs(groupKey: key, mustHaveItemKeys: [key], niceToHaveItemKeys: []) { (result) in
+        cacheURLs(groupKey: mobileHTMLKey, mustHaveItemKeys: keysToAdd, niceToHaveItemKeys: []) { (result) in
             switch result {
             case .success:
-                success(key)
+                success(keysToAdd)
             case .failure(let error):
                 failure(error)
             }
         }
     }
     
-    func migratedCacheItemFile(itemKey: CacheController.ItemKey, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
-        
-        guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: itemKey, in: cacheBackgroundContext) else {
-            failure(ArticleCacheDBWriterError.failureFetchOrCreateMustHaveCacheItem)
-            return
-        }
+    func migratedCacheItemFile(itemKeys: [CacheController.ItemKey], success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
         
         cacheBackgroundContext.perform {
-            item.isDownloaded = true
+            
+            var failedKeys: [CacheController.ItemKey] = []
+            
+            for itemKey in itemKeys {
+                guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: itemKey, in: self.cacheBackgroundContext) else {
+                   
+                    failedKeys.append(itemKey)
+                    continue
+                }
+                
+                item.isDownloaded = true
+            }
+            
+            if failedKeys.count == itemKeys.count {
+                failure(ArticleCacheDBWriterError.failureFetchOrCreateMustHaveCacheItem)
+                return
+            }
+            
             CacheDBWriterHelper.save(moc: self.cacheBackgroundContext) { (result) in
                 switch result {
                 case .success:
