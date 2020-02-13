@@ -118,3 +118,7 @@ class MediaListItemNYTPhotoWrapper: NSObject, WMFPhoto {
         self.mediaListItem = mediaListItem
     }
 }
+
+class Pica: WMFImageGalleryViewController {
+    
+}
