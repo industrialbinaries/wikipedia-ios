@@ -85,9 +85,9 @@
 		41FCAA3721C844CB001D8411 /* ReadingListEntryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */; };
 		41FCAA3821C844CB001D8411 /* ReadingListEntryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */; };
 		41FCAA3921C844CB001D8411 /* ReadingListEntryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */; };
-		6223695123FAB12100CB3036 /* ImageGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6223695023FAB12100CB3036 /* ImageGalleryViewController.swift */; };
 		6223695423FAD2EE00CB3036 /* WMFImageGalleryNYTPhotosVCDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6223695323FAD2EE00CB3036 /* WMFImageGalleryNYTPhotosVCDelegate.m */; };
 		6223EDBC23F58B8E007EB967 /* ImageGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6223EDBB23F58B8E007EB967 /* ImageGalleryViewController.swift */; };
+		623F99EE23FC1CF500923293 /* WMFImageGalleryNYTPhotosVCDelegateTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623F99ED23FC1CF500923293 /* WMFImageGalleryNYTPhotosVCDelegateTest.swift */; };
 		670063AF22540AC500E4CE3B /* SectionEditorFindAndReplaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670063AE22540AC500E4CE3B /* SectionEditorFindAndReplaceTests.swift */; };
 		67059DB52260D034009811AA /* SchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67059DB42260D034009811AA /* SchemeHandler.swift */; };
 		67059DB62260D619009811AA /* SchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67059DB42260D034009811AA /* SchemeHandler.swift */; };
@@ -3252,10 +3252,10 @@
 		19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensionsTest.m"; sourceTree = "<group>"; };
 		41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesCollectionViewController.swift; sourceTree = "<group>"; };
 		41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListEntryCollectionViewController.swift; sourceTree = "<group>"; };
-		6223695023FAB12100CB3036 /* ImageGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryViewController.swift; sourceTree = "<group>"; };
 		6223695223FAD2D100CB3036 /* WMFImageGalleryNYTPhotosVCDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFImageGalleryNYTPhotosVCDelegate.h; sourceTree = "<group>"; };
 		6223695323FAD2EE00CB3036 /* WMFImageGalleryNYTPhotosVCDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFImageGalleryNYTPhotosVCDelegate.m; sourceTree = "<group>"; };
 		6223EDBB23F58B8E007EB967 /* ImageGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryViewController.swift; sourceTree = "<group>"; };
+		623F99ED23FC1CF500923293 /* WMFImageGalleryNYTPhotosVCDelegateTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFImageGalleryNYTPhotosVCDelegateTest.swift; sourceTree = "<group>"; };
 		670063AE22540AC500E4CE3B /* SectionEditorFindAndReplaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorFindAndReplaceTests.swift; sourceTree = "<group>"; };
 		67059DB42260D034009811AA /* SchemeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeHandler.swift; sourceTree = "<group>"; };
 		6706A21622925FD2004774E2 /* InfoBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBannerView.swift; sourceTree = "<group>"; };
@@ -5769,6 +5769,14 @@
 			name = PageHistory;
 			sourceTree = "<group>";
 		};
+		623F99EC23FC1CAE00923293 /* ImageGalery */ = {
+			isa = PBXGroup;
+			children = (
+				623F99ED23FC1CF500923293 /* WMFImageGalleryNYTPhotosVCDelegateTest.swift */,
+			);
+			name = ImageGalery;
+			sourceTree = "<group>";
+		};
 		671AC2542226FB26005B37F8 /* Reading Themes Controls */ = {
 			isa = PBXGroup;
 			children = (
@@ -7339,6 +7347,7 @@
 		BCD67E7D1C1F12F2005179E1 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				623F99EC23FC1CAE00923293 /* ImageGalery */,
 				67E8B0AA226A6DB000537BC9 /* TalkPageTests */,
 				B0E808FC1C0D18730065EBC0 /* WMFJoinedPropertyParametersTests.m */,
 				8330533223F0388E00123141 /* DataStoreTests.swift */,
@@ -7389,7 +7398,6 @@
 				D8B9DB022271E4A300B51F14 /* SecurityTests.swift */,
 				D8396D1A22CF7052005625D8 /* WMFArticleTests.swift */,
 				8386BDE623857F87007EE89D /* URLParsingAndRoutingTests.swift */,
-				6223695023FAB12100CB3036 /* ImageGalleryViewController.swift */,
 			);
 			name = Tests;
 			path = WikipediaUnitTests/Code;
@@ -9871,6 +9879,7 @@
 				D8BBBCE11D94603800DECA36 /* WMFLocaleTests.m in Sources */,
 				B0E809411C0D1A820065EBC0 /* NSURL+WMFLinkParsingTests.m in Sources */,
 				D8DAD49F1E97FE6C004F6110 /* WMFImageControllerTests.swift in Sources */,
+				623F99EE23FC1CF500923293 /* WMFImageGalleryNYTPhotosVCDelegateTest.swift in Sources */,
 				B0E808981C0D16430065EBC0 /* XCTestCase+WMFLocaleTesting.m in Sources */,
 				BC45FF4B1C1B22C200BAE501 /* NSObject+WMFReflection.m in Sources */,
 				BC0069D51C7D556C00F2C377 /* WMFMockLocationManager.m in Sources */,
@@ -9915,7 +9924,6 @@
 				BC45FF481C1B1F9F00BAE501 /* NSUserDefaults+WMFReset.m in Sources */,
 				B02F96661DFA11DC007DA007 /* WMFArticleListTableViewCell+DynamicTypeFontTests.swift in Sources */,
 				B0E809351C0D1A2F0065EBC0 /* WMFGeometryTests.m in Sources */,
-				6223695123FAB12100CB3036 /* ImageGalleryViewController.swift in Sources */,
 				B0E8090B1C0D18D90065EBC0 /* NSString+FormattedAttributedStringTests.m in Sources */,
 				D8396D1B22CF7052005625D8 /* WMFArticleTests.swift in Sources */,
 				D8B9DB032271E4A300B51F14 /* SecurityTests.swift in Sources */,

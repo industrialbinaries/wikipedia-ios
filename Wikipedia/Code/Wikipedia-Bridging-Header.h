@@ -46,6 +46,7 @@
 #import "WMFThemeableNavigationController.h"
 #import "WMFFirstRandomViewController.h"
 #import "WMFImageGalleryViewController.h"
+#import "WMFImageGalleryNYTPhotosVCDelegate.h"
 
 // Views
 #import "WMFTableHeaderFooterLabelView.h"

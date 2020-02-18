@@ -1,26 +1,31 @@
 //
-//  ImageGalleryViewController.swift
+//  WMFImageGalleryNYTPhotosVCDelegateTest.swift
 //  WikipediaUnitTests
 //
-//  Created by Jozef Matus on 17/02/2020.
+//  Created by Jozef Matus on 18/02/2020.
 //  Copyright © 2020 Wikimedia Foundation. All rights reserved.
 //
 
 import XCTest
+import Foundation
 @testable import Wikipedia
+@testable import WMF
 
-class ImageGalleryViewController: XCTestCase {
+
+class WMFImageGalleryNYTPhotosVCDelegateTest: XCTestCase {
 
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        
     }
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() {
-        let vc = WMFPOTDImageGalleryViewController(dates: [Date()], theme: theme, overlayViewTopBarHidden: false)
+    func testPhotosViewController() {
+        let delegate = WMFImageGalleryNYTPhotosVCDelegate()
+        delegate.
+        
     }
 
     func testPerformanceExample() {
