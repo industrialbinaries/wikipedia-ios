@@ -61,6 +61,7 @@
 #import "UIScrollView+WMFContentOffsetUtils.h"
 #import "WKWebView+WMFWebViewControllerJavascript.h"
 #import "WMFRandomDiceButton.h"
+#import "WMFImageGalleryDetailOverlayView.h"
 
 // Diagnostics
 #import "WMFSearchFunnel.h"

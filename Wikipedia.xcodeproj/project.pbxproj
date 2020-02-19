@@ -12723,7 +12723,7 @@
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
 				);
-				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
@@ -15304,6 +15304,7 @@
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
 				);
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -17203,6 +17204,7 @@
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
 				);
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
@@ -19015,6 +19017,7 @@
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
 				);
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -20017,6 +20020,7 @@
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
 				);
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -21298,6 +21302,7 @@
 					"$(inherited)",
 					"\"$(PROJECT_DIR)/Carthage/Build/iOS\"",
 				);
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",

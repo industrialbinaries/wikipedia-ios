@@ -13,6 +13,7 @@ class MediaListGalleryViewController: WMFImageGalleryViewController {
         }
         super.init(photos: photos, initialPhoto: initialPhoto, delegate: nil, theme: theme, overlayViewTopBarHidden:overlayViewTopBarHidden)
         fetchImageForPhoto(initialPhoto)
+        
     }
     
     required init?(coder: NSCoder) {
@@ -117,8 +118,4 @@ class MediaListItemNYTPhotoWrapper: NSObject, WMFPhoto {
         }
         self.mediaListItem = mediaListItem
     }
-}
-
-class Pica: WMFImageGalleryViewController {
-    
 }

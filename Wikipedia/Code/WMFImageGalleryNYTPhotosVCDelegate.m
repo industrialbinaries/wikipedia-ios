@@ -30,7 +30,6 @@
     if (!imageInfo || !parentController) {
         return nil;
     }
-
     WMFImageGalleryDetailOverlayView *caption = [WMFImageGalleryDetailOverlayView wmf_viewFromClassNib];
     caption.imageDescriptionIsRTL = imageInfo.imageDescriptionIsRTL;
 

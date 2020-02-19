@@ -11,18 +11,18 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let button = UIButton(type: .custom)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("PICO", for: .normal)
-        button.addTarget(self, action: #selector(pico(sender:)), for: .touchUpInside)
-        self.view.addSubview(button)
-        let constraints = [
-            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            button.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            button.widthAnchor.constraint(equalToConstant: 100),
-            button.heightAnchor.constraint(equalToConstant: 100)
-        ]
-        NSLayoutConstraint.activate(constraints)
+//        let button = UIButton(type: .custom)
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        button.setTitle("PICO", for: .normal)
+//        button.addTarget(self, action: #selector(pico(sender:)), for: .touchUpInside)
+//        self.view.addSubview(button)
+//        let constraints = [
+//            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            button.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+//            button.widthAnchor.constraint(equalToConstant: 100),
+//            button.heightAnchor.constraint(equalToConstant: 100)
+//        ]
+//        NSLayoutConstraint.activate(constraints)
         
         
         layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier, addPlaceholder: true)
