@@ -106,7 +106,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithPhotos:(nullable NSArray<id<NYTPhoto>> *)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate theme:(WMFTheme *)theme overlayViewTopBarHidden:(BOOL)overlayViewTopBarHidden {
     
     self.nyDelegate = WMFImageGalleryNYTPhotosVCDelegate.new;
-    self = [super initWithPhotos:photos initialPhoto:initialPhoto delegate: self.nyDelegate];
+    self = [super initWithPhotos:photos initialPhoto:initialPhoto delegate: self];
     if (self) {
         /**
          *  We are performing the following asserts to ensure that the
@@ -237,6 +237,72 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark NYTPhotosViewControllerDelegate
+
+- (UIView *_Nullable)photosViewController:(NYTPhotosViewController *)photosViewController referenceViewForPhoto:(id<NYTPhoto>)photo {
+    return nil; //TODO: remove this and re-enable animations when tickets for fixing anmimations are addressed
+    return [self.referenceViewDelegate referenceViewForImageController:self];
+}
+
+- (CGFloat)photosViewController:(NYTPhotosViewController *)photosViewController maximumZoomScaleForPhoto:(id<NYTPhoto>)photo {
+    return 2.0;
+}
+
+- (NSString *_Nullable)photosViewController:(NYTPhotosViewController *)photosViewController titleForPhoto:(id<NYTPhoto>)photo atIndex:(NSUInteger)photoIndex totalPhotoCount:(NSUInteger)totalPhotoCount {
+    return @"";
+}
+
+- (UIView *_Nullable)photosViewController:(NYTPhotosViewController *)photosViewController captionViewForPhoto:(id<NYTPhoto>)photo {
+    MWKImageInfo *imageInfo = [(id<WMFPhoto>)photo bestImageInfo];
+
+    if (!imageInfo) {
+        return nil;
+    }
+
+    WMFImageGalleryDetailOverlayView *caption = [WMFImageGalleryDetailOverlayView wmf_viewFromClassNib];
+    caption.imageDescriptionIsRTL = imageInfo.imageDescriptionIsRTL;
+
+    caption.imageDescription =
+        [imageInfo.imageDescription stringByTrimmingCharactersInSet:
+                                        [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *ownerOrFallback = imageInfo.owner ? [imageInfo.owner stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
+                                                : WMFLocalizedStringWithDefaultValue(@"image-gallery-unknown-owner", nil, nil, @"Author unknown.", @"Fallback text for when an item in the image gallery doesn't have a specified owner.");
+
+    [caption setLicense:imageInfo.license owner:ownerOrFallback];
+
+    @weakify(self);
+    caption.ownerTapCallback = ^{
+        @strongify(self);
+        if (imageInfo.license.URL) {
+            [self wmf_navigateToURL:imageInfo.license.URL.wmf_urlByPrependingSchemeIfSchemeless];
+        } else if (imageInfo.filePageURL) {
+            [self wmf_navigateToURL:imageInfo.filePageURL.wmf_urlByPrependingSchemeIfSchemeless];
+        } else {
+            // There should always be a file page URL, but log an error anyway
+            DDLogError(@"No license URL or file page URL for %@", imageInfo);
+        }
+    };
+    caption.infoTapCallback = ^{
+        @strongify(self);
+        if (imageInfo.filePageURL) {
+            [self wmf_navigateToURL:imageInfo.filePageURL.wmf_urlByPrependingSchemeIfSchemeless];
+        }
+    };
+    @weakify(caption);
+    caption.descriptionTapCallback = ^{
+        [UIView animateWithDuration:0.3
+                         animations:^{
+                             @strongify(self);
+                             @strongify(caption);
+                             [caption toggleDescriptionOpenState];
+                             [self.view layoutIfNeeded];
+                         }
+                         completion:NULL];
+    };
+
+    caption.maximumDescriptionHeight = self.view.frame.size.height;
+
+    return caption;
+}
 
 - (void)updateImageForPhotoAfterUserInteractionIsFinished:(id<NYTPhoto> _Nullable)photo {
     //Exclude UITrackingRunLoopMode so the update doesn't happen while the user is pinching or scrolling
