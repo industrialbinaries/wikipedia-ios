@@ -87,6 +87,7 @@
 		41FCAA3921C844CB001D8411 /* ReadingListEntryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */; };
 		6223695423FAD2EE00CB3036 /* WMFImageGalleryNYTPhotosVCDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6223695323FAD2EE00CB3036 /* WMFImageGalleryNYTPhotosVCDelegate.m */; };
 		6223EDBC23F58B8E007EB967 /* ImageGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6223EDBB23F58B8E007EB967 /* ImageGalleryViewController.swift */; };
+		62288402240006EC0020C007 /* WMFImageGalleryViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62288401240006EC0020C007 /* WMFImageGalleryViewControllerTest.swift */; };
 		623F99EE23FC1CF500923293 /* WMFImageGalleryNYTPhotosVCDelegateTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623F99ED23FC1CF500923293 /* WMFImageGalleryNYTPhotosVCDelegateTest.swift */; };
 		670063AF22540AC500E4CE3B /* SectionEditorFindAndReplaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670063AE22540AC500E4CE3B /* SectionEditorFindAndReplaceTests.swift */; };
 		67059DB52260D034009811AA /* SchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67059DB42260D034009811AA /* SchemeHandler.swift */; };
@@ -3255,6 +3256,7 @@
 		6223695223FAD2D100CB3036 /* WMFImageGalleryNYTPhotosVCDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFImageGalleryNYTPhotosVCDelegate.h; sourceTree = "<group>"; };
 		6223695323FAD2EE00CB3036 /* WMFImageGalleryNYTPhotosVCDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFImageGalleryNYTPhotosVCDelegate.m; sourceTree = "<group>"; };
 		6223EDBB23F58B8E007EB967 /* ImageGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryViewController.swift; sourceTree = "<group>"; };
+		62288401240006EC0020C007 /* WMFImageGalleryViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFImageGalleryViewControllerTest.swift; sourceTree = "<group>"; };
 		623F99ED23FC1CF500923293 /* WMFImageGalleryNYTPhotosVCDelegateTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFImageGalleryNYTPhotosVCDelegateTest.swift; sourceTree = "<group>"; };
 		670063AE22540AC500E4CE3B /* SectionEditorFindAndReplaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorFindAndReplaceTests.swift; sourceTree = "<group>"; };
 		67059DB42260D034009811AA /* SchemeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeHandler.swift; sourceTree = "<group>"; };
@@ -5773,6 +5775,7 @@
 			isa = PBXGroup;
 			children = (
 				623F99ED23FC1CF500923293 /* WMFImageGalleryNYTPhotosVCDelegateTest.swift */,
+				62288401240006EC0020C007 /* WMFImageGalleryViewControllerTest.swift */,
 			);
 			name = ImageGalery;
 			sourceTree = "<group>";
@@ -9895,6 +9898,7 @@
 				B0C06B9F218240CA00E481CC /* Collection+AsyncMapTests.swift in Sources */,
 				BC62AE621C58FC810064C589 /* NSProcessInfo+WMFTestEnvironment.m in Sources */,
 				D8BDA8C11E71C0760031F4BF /* WMFBlocksKitTests.m in Sources */,
+				62288402240006EC0020C007 /* WMFImageGalleryViewControllerTest.swift in Sources */,
 				B0E8092F1C0D1A0B0065EBC0 /* NSURL+WMFExtrasTests.m in Sources */,
 				B39427441E71F79700D3146D /* NSDictionaryBlocksKitTest.m in Sources */,
 				6790AAF522D6861500D442D6 /* TalkPageControllerTests.swift in Sources */,

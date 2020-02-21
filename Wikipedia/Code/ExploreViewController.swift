@@ -32,10 +32,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return assertionFailure("Invalid caption")
         }
         
-        let gradietnView = caption.subviews.filter { $0 is WMFImageGalleryBottomGradientView }.first
-        let imageView = gradietnView?.subviews.filter { $0 is UIImageView }.first as? UIImageView
-        imageView?.image.name
-        
         layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier, addPlaceholder: true)
         
         navigationItem.titleView = titleView

@@ -1,11 +1,3 @@
-//
-//  WMFImageGalleryNYTPhotosVCDelegateTest.swift
-//  WikipediaUnitTests
-//
-//  Created by Jozef Matus on 18/02/2020.
-//  Copyright © 2020 Wikimedia Foundation. All rights reserved.
-//
-
 import XCTest
 import Foundation
 import NYTPhotoViewerCore
@@ -52,15 +44,27 @@ class WMFImageGalleryNYTPhotosVCDelegateTest: XCTestCase {
         waitForExpectations(timeout: 5, handler: nil)
     }
     
-    func testDescriptionTap() {
+    // If description is long enough, description section should expand and change icon. Expansion part should be tested in WMFImageGalleryDetailOverlayView, here we just check if closure was called
+    func testLongDescriptionTap() throws {
         guard let caption = delegate.photosViewController(photoVC, captionViewFor: photo) as? WMFImageGalleryDetailOverlayView else {
             return assertionFailure("Invalid caption")
         }
-        
+        caption.descriptionTapCallback()
         let gradietnView = caption.subviews.filter { $0 is WMFImageGalleryBottomGradientView }.first
-        let imageView = gradietnView?.subviews.filter { $0 is UIImageView }.first as? UIImageView
-        
-        print("sdfads")
+        let image = try XCTUnwrap((gradietnView?.subviews.filter { $0 is UIImageView }.first as? UIImageView)?.image)
+        let output = image.pngData() == UIImage(named: "gallery-line-bent")!.pngData()
+        XCTAssert(output)
+    }
+    
+    func testShortDescriptionTap() throws {
+        guard let caption = delegate.photosViewController(photoVC, captionViewFor: Photo(longDescription: false)) as? WMFImageGalleryDetailOverlayView else {
+            return assertionFailure("Invalid caption")
+        }
+        caption.descriptionTapCallback()
+        let gradietnView = caption.subviews.filter { $0 is WMFImageGalleryBottomGradientView }.first
+        let image = try XCTUnwrap((gradietnView?.subviews.filter { $0 is UIImageView }.first as? UIImageView)?.image)
+        let output = image.pngData() == UIImage(named: "gallery-line")!.pngData()
+        XCTAssert(output)
     }
 
     func testPerformanceExample() {
@@ -71,13 +75,20 @@ class WMFImageGalleryNYTPhotosVCDelegateTest: XCTestCase {
     }
     
     class Photo: NSObject, WMFPhoto {
+        
+        let longDescription: Bool
+        
+        init(longDescription: Bool = true) {
+            self.longDescription = longDescription
+        }
+        
         func bestImageURL() -> URL? {
             nil
         }
         
         func bestImageInfo() -> MWKImageInfo? {
             let canonicalFileURL = URL(string: "https://upload.wikimedia.org/wikipedia/commons/0/01/Daubeny%27s_water_lily_at_BBG_%2850824%29.jpg")
-            let imageDescription = "Picture of the day for Feb 19, 2020\n\nDaubeny's water lily ( Nymphaea \u{00d7} daubenyana ), Brooklyn Botanic Garden in January 2019 Picture of the day for Feb 19, 2020\n\nDaubeny's water lily ( Nymphaea \u{00d7} daubenyana ), Brooklyn Botanic Garden in January 2019 Picture of the day for Feb 19, 2020\n\nDaubeny's water lily ( Nymphaea \u{00d7} daubenyana ), Brooklyn Botanic Garden in January 2019 Picture of the day for Feb 19, 2020\n\nDaubeny's water lily ( Nymphaea \u{00d7} daubenyana ), Brooklyn Botanic Garden in January 2019 Picture of the day for Feb 19, 2020\n\nDaubeny's water lily ( Nymphaea \u{00d7} daubenyana ), Brooklyn Botanic Garden in January 2019"
+            let imageDescription = longDescription ? "Picture of the day for Feb 19, 2020\n\nDaubeny's water lily ( Nymphaea \u{00d7} daubenyana ), Brooklyn Botanic Garden in January 2019 Picture of the day for Feb 19, 2020\n\nDaubeny's water lily ( Nymphaea \u{00d7} daubenyana ), Brooklyn Botanic Garden in January 2019 Picture of the day for Feb 19, 2020\n\nDaubeny's water lily ( Nymphaea \u{00d7} daubenyana ), Brooklyn Botanic Garden in January 2019 Picture of the day for Feb 19, 2020\n\nDaubeny's water lily ( Nymphaea \u{00d7} daubenyana ), Brooklyn Botanic Garden in January 2019 Picture of the day for Feb 19, 2020\n\nDaubeny's water lily ( Nymphaea \u{00d7} daubenyana ), Brooklyn Botanic Garden in January 2019" : "Picture of the day for Feb 19, 2020"
             let license = MWKLicense(code: "\"cc-by-sa-4.0\";\n", shortDescription: "\"CC BY-SA 4.0\";\n} cc-by-sa-4.0 CC BY-SA 4.0" , url: URL(string: "https://creativecommons.org/licenses/by-sa/4.0"))
             let filePageURL = URL(string: "https://commons.wikimedia.org/wiki/File:Daubeny%27s_water_lily_at_BBG_(50824).jpg")
             let info = MWKImageInfo(canonicalPageTitle: "File:Daubeny's water lily at BBG (50824).jpg", canonicalFileURL: canonicalFileURL, imageDescription: imageDescription, imageDescriptionIsRTL: false, license: license, filePageURL: filePageURL, imageThumbURL: nil, owner: "Rhododendrites", imageSize: CGSize(width: 4028, height: 3346), thumbSize: CGSize(width: 640, height: 532))
@@ -99,4 +110,11 @@ class WMFImageGalleryNYTPhotosVCDelegateTest: XCTestCase {
         var attributedCaptionCredit: NSAttributedString?
     }
 
+}
+
+func ==(lhs: UIImage, rhs: UIImage) -> Bool {
+    if let lhsData = lhs.pngData(), let rhsData = rhs.pngData() {
+        return lhsData == rhsData
+    }
+    return false
 }
