@@ -38,8 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) id<WMFExposedDataSource> dataSource;
 
-@property (nonatomic, strong) WMFImageGalleryNYTPhotosVCDelegate* nyDelegate;
-
 - (NYTPhotoViewController *)currentPhotoViewController;
 
 - (UIImageView *)currentImageView;
@@ -105,7 +103,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithPhotos:(nullable NSArray<id<NYTPhoto>> *)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate theme:(WMFTheme *)theme overlayViewTopBarHidden:(BOOL)overlayViewTopBarHidden {
     
-    self.nyDelegate = WMFImageGalleryNYTPhotosVCDelegate.new;
     self = [super initWithPhotos:photos initialPhoto:initialPhoto delegate: self];
     if (self) {
         /**

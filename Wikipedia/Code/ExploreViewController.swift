@@ -1026,6 +1026,11 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
 // MARK: - EventLoggingSearchSourceProviding
 extension ExploreViewController: EventLoggingSearchSourceProviding {
     var searchSource: String {
+//        tst.photos
         return "top_of_feed"
     }
+}
+
+class MyTest: WMFImageGalleryViewController {
+    
 }

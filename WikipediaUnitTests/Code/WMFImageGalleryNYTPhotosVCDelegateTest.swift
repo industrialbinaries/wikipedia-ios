@@ -7,21 +7,30 @@ import NYTPhotoViewerCore
 
 class WMFImageGalleryNYTPhotosVCDelegateTest: XCTestCase {
 
-    private var delegate: WMFImageGalleryNYTPhotosVCDelegate!
-    private var photoVC: NYTPhotosViewController!
-    private var photo = Photo()
+    private var photoVC: WMFImageGalleryViewController_Test!
+    private let photos: [NYTPhoto] = [Photo(), Photo(longDescription: false)]
     
     override func setUp() {
-        delegate = WMFImageGalleryNYTPhotosVCDelegate()
-        photoVC = WMFPOTDImageGalleryViewController(dates: [Date()], theme: Theme.dark, overlayViewTopBarHidden: false)
+        photoVC = WMFImageGalleryViewController_Test(photos: photos as? [WMFPhoto], initialPhoto: photos[0] as? WMFPhoto, delegate: nil, theme: Theme.dark, overlayViewTopBarHidden: false)
     }
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
+    
+    func testSetOverlayViewTopBarHidden() {
+        photoVC.setOverlayViewTopBarHidden(true)
+        XCTAssertEqual(photoVC.overlayView?.rightBarButtonItem, nil)
+        XCTAssertEqual(photoVC.overlayView?.leftBarButtonItem, nil)
+        XCTAssertEqual(photoVC.overlayView?.topCoverBackgroundColor, UIColor.clear)
+        photoVC.setOverlayViewTopBarHidden(false)
+        XCTAssertNotNil(photoVC.overlayView?.rightBarButtonItem)
+        XCTAssertNotNil(photoVC.overlayView?.leftBarButtonItem)
+    }
 
     func testOwnerTap() {
-        guard let caption = delegate.photosViewController(photoVC, captionViewFor: photo) as? WMFImageGalleryDetailOverlayView else {
+
+        guard let caption = photoVC.delegate?.photosViewController?(photoVC, captionViewFor: photos[0]) as? WMFImageGalleryDetailOverlayView else {
             return assertionFailure("Invalid caption")
         }
         
@@ -33,7 +42,7 @@ class WMFImageGalleryNYTPhotosVCDelegateTest: XCTestCase {
     }
     
     func testInfoTap() {
-        guard let caption = delegate.photosViewController(photoVC, captionViewFor: photo) as? WMFImageGalleryDetailOverlayView else {
+        guard let caption = photoVC.delegate?.photosViewController?(photoVC, captionViewFor: photos[0]) as? WMFImageGalleryDetailOverlayView else {
             return assertionFailure("Invalid caption")
         }
         
@@ -46,7 +55,7 @@ class WMFImageGalleryNYTPhotosVCDelegateTest: XCTestCase {
     
     // If description is long enough, description section should expand and change icon. Expansion part should be tested in WMFImageGalleryDetailOverlayView, here we just check if closure was called
     func testLongDescriptionTap() throws {
-        guard let caption = delegate.photosViewController(photoVC, captionViewFor: photo) as? WMFImageGalleryDetailOverlayView else {
+        guard let caption = photoVC.delegate?.photosViewController?(photoVC, captionViewFor: photos[0]) as? WMFImageGalleryDetailOverlayView else {
             return assertionFailure("Invalid caption")
         }
         caption.descriptionTapCallback()
@@ -57,7 +66,7 @@ class WMFImageGalleryNYTPhotosVCDelegateTest: XCTestCase {
     }
     
     func testShortDescriptionTap() throws {
-        guard let caption = delegate.photosViewController(photoVC, captionViewFor: Photo(longDescription: false)) as? WMFImageGalleryDetailOverlayView else {
+        guard let caption = photoVC.delegate?.photosViewController?(photoVC, captionViewFor: photos[1]) as? WMFImageGalleryDetailOverlayView else {
             return assertionFailure("Invalid caption")
         }
         caption.descriptionTapCallback()
@@ -117,4 +126,8 @@ func ==(lhs: UIImage, rhs: UIImage) -> Bool {
         return lhsData == rhsData
     }
     return false
+}
+
+class WMFImageGalleryViewController_Test: WMFImageGalleryViewController {
+    
 }
