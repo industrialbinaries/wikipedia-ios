@@ -1275,6 +1275,10 @@
 		83FBE9761F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FBE9741F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift */; };
 		83FBE9771F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FBE9741F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift */; };
 		83FBE9781F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FBE9741F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift */; };
+		A47D81DF23FBE0D2000807AB /* LocationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47D81DE23FBE0D2000807AB /* LocationManagerTests.swift */; };
+		A47D81E223FC2437000807AB /* MockCLHeading.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47D81E123FC2437000807AB /* MockCLHeading.swift */; };
+		A47D81E423FC245E000807AB /* MockCLLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47D81E323FC245E000807AB /* MockCLLocationManager.swift */; };
+		A4AE463E2406BA2F00B429E0 /* MockUIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AE463D2406BA2F00B429E0 /* MockUIDevice.swift */; };
 		B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00050131C52D73800515F70 /* UIApplication+RTL.swift */; };
 		B0016CB921354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0016CB821354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift */; };
 		B0016CBA21354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0016CB821354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift */; };
@@ -3636,6 +3640,10 @@
 		83FBE96E1F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareAFactActivityTextItemProvider.swift; sourceTree = "<group>"; };
 		83FBE9741F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareAFactActivityImageItemProvider.swift; sourceTree = "<group>"; };
 		A40BDDA9240519D400D1CA3D /* WMFLocationManager+Testing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WMFLocationManager+Testing.h"; sourceTree = "<group>"; };
+		A47D81DE23FBE0D2000807AB /* LocationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerTests.swift; sourceTree = "<group>"; };
+		A47D81E123FC2437000807AB /* MockCLHeading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCLHeading.swift; sourceTree = "<group>"; };
+		A47D81E323FC245E000807AB /* MockCLLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCLLocationManager.swift; sourceTree = "<group>"; };
+		A4AE463D2406BA2F00B429E0 /* MockUIDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUIDevice.swift; sourceTree = "<group>"; };
 		B00050131C52D73800515F70 /* UIApplication+RTL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+RTL.swift"; sourceTree = "<group>"; };
 		B0016CB821354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoLayoutSafeMultiLineButton.swift; sourceTree = "<group>"; };
 		B0016CBE2136105900FA1096 /* SetupButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupButton.swift; sourceTree = "<group>"; };
@@ -6330,6 +6338,23 @@
 			name = Fetchers;
 			sourceTree = "<group>";
 		};
+		A47D81E023FC2412000807AB /* LocationManagerMocks */ = {
+			isa = PBXGroup;
+			children = (
+				A47D81E123FC2437000807AB /* MockCLHeading.swift */,
+				A47D81E323FC245E000807AB /* MockCLLocationManager.swift */,
+			);
+			name = LocationManagerMocks;
+			sourceTree = "<group>";
+		};
+		A4AE463C2406BA1500B429E0 /* UIDeviceMocks */ = {
+			isa = PBXGroup;
+			children = (
+				A4AE463D2406BA2F00B429E0 /* MockUIDevice.swift */,
+			);
+			name = UIDeviceMocks;
+			sourceTree = "<group>";
+		};
 		B011FA471D470F4700AD7C5E /* FindInPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -7216,6 +7241,8 @@
 		BCA6764F1AC05FE200A16160 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				A4AE463C2406BA1500B429E0 /* UIDeviceMocks */,
+				A47D81E023FC2412000807AB /* LocationManagerMocks */,
 				BCD41E071B11D2ED00231BB1 /* Fixture Utilities */,
 				BCD41E081B11D30B00231BB1 /* Persistence Utilities */,
 				B0E8088D1C0D16140065EBC0 /* WMFAsyncTestCase.h */,
@@ -7376,6 +7403,7 @@
 				D8B9DB022271E4A300B51F14 /* SecurityTests.swift */,
 				D8396D1A22CF7052005625D8 /* WMFArticleTests.swift */,
 				8386BDE623857F87007EE89D /* URLParsingAndRoutingTests.swift */,
+				A47D81DE23FBE0D2000807AB /* LocationManagerTests.swift */,
 			);
 			name = Tests;
 			path = WikipediaUnitTests/Code;
@@ -9860,6 +9888,7 @@
 				D8DAD49F1E97FE6C004F6110 /* WMFImageControllerTests.swift in Sources */,
 				B0E808981C0D16430065EBC0 /* XCTestCase+WMFLocaleTesting.m in Sources */,
 				BC45FF4B1C1B22C200BAE501 /* NSObject+WMFReflection.m in Sources */,
+				A4AE463E2406BA2F00B429E0 /* MockUIDevice.swift in Sources */,
 				B0E808741C0D154C0065EBC0 /* NSBundle+TestAssets.m in Sources */,
 				B0E8093B1C0D1A590065EBC0 /* WMFSafeAssignTests.m in Sources */,
 				B0E809111C0D18FD0065EBC0 /* WMFSubstringUtilsTests.m in Sources */,
@@ -9879,11 +9908,13 @@
 				B0E808771C0D155A0065EBC0 /* XCTestCase+WMFBundleConvenience.m in Sources */,
 				B389CFCB1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift in Sources */,
 				B0E809601C0D1BA30065EBC0 /* WMFSearchFetcherTests.m in Sources */,
+				A47D81E423FC245E000807AB /* MockCLLocationManager.swift in Sources */,
 				D820F78B1DD0E5E100806045 /* WMFNotificationTests.m in Sources */,
 				B01662B31D1B8CAB006F4544 /* NSURL+WMFQueryParametersTests.m in Sources */,
 				D8D550811DF0D2BD00B90177 /* NSArray+WMFMatching.m in Sources */,
 				8330533323F0388E00123141 /* DataStoreTests.swift in Sources */,
 				B09AD9CB1FE071F60034DA09 /* WMFArticleElementTests.swift in Sources */,
+				A47D81DF23FBE0D2000807AB /* LocationManagerTests.swift in Sources */,
 				B0E8088F1C0D16140065EBC0 /* WMFAsyncTestCase.m in Sources */,
 				B0E8087D1C0D15760065EBC0 /* WMFRandomFileUtilities.m in Sources */,
 				BC90DE791C57C5AD007E0E81 /* WMFWelcomeLanguageViewControllerVisualTests.m in Sources */,
@@ -9921,6 +9952,7 @@
 				B0E809091C0D18BC0065EBC0 /* NSString+WMFHTMLParsingTests.m in Sources */,
 				19A175F095F5197BA20EA8BA /* NSUserActivity+WMFExtensionsTest.m in Sources */,
 				6790AAF622D6861500D442D6 /* TalkPageTestHelpers.swift in Sources */,
+				A47D81E223FC2437000807AB /* MockCLHeading.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
