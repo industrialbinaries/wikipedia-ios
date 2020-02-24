@@ -7,7 +7,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
         }
     }
     let dataStore: MWKDataStore
-    fileprivate let locationManager = WMFLocationManager.fine()
+    fileprivate let locationManager = LocationManager()
     private var feedFunnelContext: FeedFunnelContext?
     private var previewedIndexPath: IndexPath?
 
@@ -36,7 +36,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         locationManager.delegate = self
-        if locationManager.isAuthorized() {
+        if locationManager.isAuthorized {
             locationManager.startMonitoringLocation()
         }
     }
@@ -163,20 +163,14 @@ extension ArticleLocationCollectionViewController {
     }
 }
 
-// MARK: - WMFLocationManagerDelegate
-extension ArticleLocationCollectionViewController: WMFLocationManagerDelegate {
-    func locationManager(_ controller: WMFLocationManager, didUpdate location: CLLocation) {
-        updateLocationOnVisibleCells()
-    }
-    
-    func locationManager(_ controller: WMFLocationManager, didUpdate heading: CLHeading) {
+// MARK: - LocationManagerDelegate
+extension ArticleLocationCollectionViewController: LocationManagerDelegate {
+    func locationManager(_ locationManager: LocationManagerProtocol, didUpdate location: CLLocation) {
         updateLocationOnVisibleCells()
     }
 
-    func locationManager(_ controller: WMFLocationManager, didChangeEnabledState enabled: Bool) {
-        if enabled {
-            locationManager.startMonitoringLocation()
-        }
+    func locationManager(_ locationManager: LocationManagerProtocol, didUpdate heading: CLHeading) {
+        updateLocationOnVisibleCells()
     }
 }
 
