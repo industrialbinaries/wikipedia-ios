@@ -51,8 +51,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign, readwrite) CLAuthorizationStatus currentAuthorizationStatus;
 
-- (instancetype)initWithLocationManager:(CLLocationManager *)locationManager device:(UIDevice *)device NS_DESIGNATED_INITIALIZER;
-
 @end
 
 @implementation WMFLocationManager
