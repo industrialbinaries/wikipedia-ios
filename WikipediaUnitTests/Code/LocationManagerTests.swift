@@ -5,7 +5,7 @@ final class LocationManagerTests: XCTestCase {
 
     private var mockCLLocationManager: MockCLLocationManager!
     private var mockDevice: MockUIDevice!
-    private var locationManager: WMFLocationManager!
+    private var locationManager: LocationManager!
     private var delegate: TestLocationManagerDelegate!
 
     override func setUp() {
@@ -16,26 +16,31 @@ final class LocationManagerTests: XCTestCase {
 
         mockDevice = MockUIDevice(orientation: .unknown)
 
-        locationManager = WMFLocationManager(locationManager: mockCLLocationManager, device: mockDevice)
+        locationManager = LocationManager(
+            locationManager: mockCLLocationManager,
+            device: mockDevice
+        )
 
         delegate = TestLocationManagerDelegate()
         locationManager.delegate = delegate
     }
 
-    // MARK: - WMFLocationManager tests
+    // MARK: - LocationManager tests
 
     func testFineLocationManager() {
-        let locationManager = WMFLocationManager.fine()
-        XCTAssertEqual(locationManager.locationManager.distanceFilter, 1)
-        XCTAssertEqual(locationManager.locationManager.desiredAccuracy, kCLLocationAccuracyBest)
-        XCTAssertEqual(locationManager.locationManager.activityType, .fitness)
+        let clLocationManager = CLLocationManager()
+        _ = LocationManager(locationManager: clLocationManager, type: .fine)
+        XCTAssertEqual(clLocationManager.distanceFilter, 1)
+        XCTAssertEqual(clLocationManager.desiredAccuracy, kCLLocationAccuracyBest)
+        XCTAssertEqual(clLocationManager.activityType, .fitness)
     }
 
     func testCoarseLocationManager() {
-        let locationManager = WMFLocationManager.coarse()
-        XCTAssertEqual(locationManager.locationManager.distanceFilter, 1000)
-        XCTAssertEqual(locationManager.locationManager.desiredAccuracy, kCLLocationAccuracyKilometer)
-        XCTAssertEqual(locationManager.locationManager.activityType, .fitness)
+        let clLocationManager = CLLocationManager()
+        _ = LocationManager(locationManager: clLocationManager, type: .coarse)
+        XCTAssertEqual(clLocationManager.distanceFilter, 1000)
+        XCTAssertEqual(clLocationManager.desiredAccuracy, kCLLocationAccuracyKilometer)
+        XCTAssertEqual(clLocationManager.activityType, .fitness)
     }
 
     func testStartMonitoring() {
@@ -91,34 +96,25 @@ final class LocationManagerTests: XCTestCase {
     func testAuthorizedStatus() {
         // Test authorizedAlways status
         mockCLLocationManager.simulate(authorizationStatus: .authorizedAlways)
-        XCTAssertEqual(locationManager.isAuthorized(), true)
-        XCTAssertEqual(locationManager.isAuthorizationNotDetermined(), false)
-        XCTAssertEqual(locationManager.isAuthorizationDenied(), false)
-        XCTAssertEqual(locationManager.isAuthorizationRestricted(), false)
+        XCTAssertTrue(locationManager.isAuthorized)
 
         // Test notDetermined status
         mockCLLocationManager.simulate(authorizationStatus: .notDetermined)
-        XCTAssertEqual(locationManager.isAuthorized(), false)
-        XCTAssertEqual(locationManager.isAuthorizationNotDetermined(), true)
-        XCTAssertEqual(locationManager.isAuthorizationDenied(), false)
-        XCTAssertEqual(locationManager.isAuthorizationRestricted(), false)
+        XCTAssertEqual(locationManager.autorizationStatus, .notDetermined)
+        XCTAssertFalse(locationManager.isAuthorized)
 
         // Test denied status
         mockCLLocationManager.simulate(authorizationStatus: .denied)
-        XCTAssertEqual(locationManager.isAuthorized(), false)
-        XCTAssertEqual(locationManager.isAuthorizationNotDetermined(), false)
-        XCTAssertEqual(locationManager.isAuthorizationDenied(), true)
-        XCTAssertEqual(locationManager.isAuthorizationRestricted(), false)
+        XCTAssertEqual(locationManager.autorizationStatus, .denied)
+        XCTAssertFalse(locationManager.isAuthorized)
 
         // Test restricted status
         mockCLLocationManager.simulate(authorizationStatus: .restricted)
-        XCTAssertEqual(locationManager.isAuthorized(), false)
-        XCTAssertEqual(locationManager.isAuthorizationNotDetermined(), false)
-        XCTAssertEqual(locationManager.isAuthorizationDenied(), false)
-        XCTAssertEqual(locationManager.isAuthorizationRestricted(), true)
+        XCTAssertEqual(locationManager.autorizationStatus, .restricted)
+        XCTAssertFalse(locationManager.isAuthorized)
     }
 
-    // MARK: - WMFLocationManagerDelegate tests
+    // MARK: - LocationManagerDelegate tests
 
     func testUpdateLocation() {
         locationManager.startMonitoringLocation()
@@ -215,26 +211,26 @@ final class LocationManagerTests: XCTestCase {
     }
 }
 
-/// Test implementation of `WMFLocationManagerDelegate`
-private final class TestLocationManagerDelegate: NSObject, WMFLocationManagerDelegate {
+/// Test implementation of `LocationManagerDelegate`
+private final class TestLocationManagerDelegate: LocationManagerDelegate {
     private(set) var heading: CLHeading?
     private(set) var location: CLLocation?
     private(set) var error: Error?
     private(set) var authorized: Bool?
 
-    func locationManager(_ controller: WMFLocationManager, didReceiveError error: Error) {
+    func locationManager(_ locationManager: LocationManagerProtocol, didReceive error: Error) {
         self.error = error
     }
 
-    func locationManager(_ controller: WMFLocationManager, didUpdate heading: CLHeading) {
+    func locationManager(_ locationManager: LocationManagerProtocol, didUpdate heading: CLHeading) {
         self.heading = heading
     }
 
-    func locationManager(_ controller: WMFLocationManager, didUpdate location: CLLocation) {
+    func locationManager(_ locationManager: LocationManagerProtocol, didUpdate location: CLLocation) {
         self.location = location
     }
 
-    func locationManager(_ controller: WMFLocationManager, didChangeEnabledState enabled: Bool) {
-        self.authorized = enabled
+    func locationManager(_ locationManager: LocationManagerProtocol, didUpdateAuthorized authorized: Bool) {
+        self.authorized = authorized
     }
 }
