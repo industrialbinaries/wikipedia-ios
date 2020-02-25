@@ -75,6 +75,26 @@ class WMFImageGalleryNYTPhotosVCDelegateTest: XCTestCase {
         let output = image.pngData() == UIImage(named: "gallery-line")!.pngData()
         XCTAssert(output)
     }
+    
+    func testIndexOfCurrentImage() {
+        
+    }
+  
+    func testCurrentImageView() {
+        
+    }
+    
+    func testShowImageAtIndex() {
+        
+    }
+    
+    func testUpdateImageForPhotoAfterUserInteractionIsFinished() {
+        
+    }
+    
+    func testUpdateOverlayInformation() {
+        
+    }
 
     func testPerformanceExample() {
         // This is an example of a performance test case.
