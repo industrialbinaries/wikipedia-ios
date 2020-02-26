@@ -5,7 +5,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFLocationManager (Testing)
 
-- (instancetype)initWithLocationManager:(CLLocationManager *)locationManager;
+- (instancetype)initWithLocationManager:(CLLocationManager *)locationManager device:(UIDevice *)device;
 
 @end
 
