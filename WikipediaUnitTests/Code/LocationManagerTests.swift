@@ -209,6 +209,46 @@ final class LocationManagerTests: XCTestCase {
         mockDevice.simulateUpdate(orientation: .portrait)
         XCTAssertNotEqual(mockCLLocationManager.headingOrientation, .portrait)
     }
+
+
+    /// Test for start and stop generate device orientation
+    func testGenerateDeviceOrientation() {
+        XCTAssertEqual(mockDevice.deviceOrientationObserversCount, 0)
+        locationManager.startMonitoringLocation()
+        XCTAssertEqual(mockDevice.deviceOrientationObserversCount, 1)
+
+        // Stres test - start monitoring
+        locationManager.startMonitoringLocation()
+        locationManager.startMonitoringLocation()
+        locationManager.startMonitoringLocation()
+        XCTAssertEqual(mockDevice.deviceOrientationObserversCount, 1)
+
+        // Test stop monitoring disable
+        locationManager.stopMonitoringLocation()
+        XCTAssertEqual(mockDevice.deviceOrientationObserversCount, 0)
+
+        // Stres test - stop monitoring
+        locationManager.stopMonitoringLocation()
+        locationManager.stopMonitoringLocation()
+        locationManager.stopMonitoringLocation()
+        XCTAssertEqual(mockDevice.deviceOrientationObserversCount, 0)
+    }
+
+
+    /// Test dealloc locationManager and stop location and heading monitoring
+    func testDealloc() {
+        locationManager.startMonitoringLocation()
+        XCTAssertEqual(mockCLLocationManager.isUpdatingLocation, true)
+        XCTAssertEqual(mockCLLocationManager.isUpdatingHeading, true)
+        mockDevice.simulateUpdate(orientation: .portrait)
+        XCTAssertEqual(mockCLLocationManager.headingOrientation, .portrait)
+        // Dealloc location manager
+        locationManager = nil
+        XCTAssertEqual(mockCLLocationManager.isUpdatingLocation, false)
+        XCTAssertEqual(mockCLLocationManager.isUpdatingHeading, false)
+        mockDevice.simulateUpdate(orientation: .landscapeLeft)
+        XCTAssertNotEqual(mockCLLocationManager.headingOrientation, .landscapeLeft)
+    }
 }
 
 /// Test implementation of `LocationManagerDelegate`

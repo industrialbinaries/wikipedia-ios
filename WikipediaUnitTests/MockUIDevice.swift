@@ -8,6 +8,17 @@ final class MockUIDevice: UIDevice {
         return _orientation
     }
 
+    var deviceOrientationObserversCount: Int = 0
+    override func beginGeneratingDeviceOrientationNotifications() {
+        super.beginGeneratingDeviceOrientationNotifications()
+        deviceOrientationObserversCount += 1
+    }
+
+    override func endGeneratingDeviceOrientationNotifications() {
+        super.endGeneratingDeviceOrientationNotifications()
+        deviceOrientationObserversCount -= 1
+    }
+
     init(orientation: UIDeviceOrientation) {
         _orientation = orientation
     }
